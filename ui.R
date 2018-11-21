@@ -16,15 +16,24 @@ ui <- dashboardPage(
     tabItems(
       tabItem(tabName = 'Surv',
               h1('Survival Analysis'),
-              selectInput('DataSet', 'Select a dataset',c('lung','iris')),
+              selectInput('Dataset', 'Select a dataset',c('lung','cgd','pbc')),
+              #  selectInput('Covariates','Select a covariate', )
               dataTableOutput('DataSetTable'),
-              htmlOutput('DataSetInfo'),
-              plotOutput('DataSetPlot1',
-                         width = "500px", height = "500px")
-              ) # end of the tab item
-      ) # end of tabItems
-    ) # end of dashboard body
-
-   
-  ) # end of dashboardpage
-
+              fluidRow(
+                box(title = 'DataSet info',verbatimTextOutput('DataSetInfo'),collapsible = TRUE, width = 12),
+                box(title = 'DataSet Summary',verbatimTextOutput("summary"),collapsible = TRUE, width = 12)
+                
+              ),
+              
+              fluidRow(box(title = 'plot',plotOutput('DataSetPlot1',
+                                                     width = "500px", height = "500px")),
+                       box('select Covariate',selectInput('covariate', 'Select a covariate', 'placeholder')) )
+              
+              
+      ) # end of the tab item
+      
+    ) # end of tabItems
+  ) # end of dashboard body
+  
+  
+) # end of dashboardpage
